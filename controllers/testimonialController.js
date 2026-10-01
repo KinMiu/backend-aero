@@ -61,3 +61,39 @@ export async function deleteTestimonial(req, res, next) {
     next(err);
   }
 }
+
+export async function seedTestimonials(req, res, next) {
+  try {
+    const existing = await Testimonial.countDocuments();
+    if (existing > 0) {
+      return res.json({ message: "Testimonials already seeded", count: existing });
+    }
+    const seedData = [
+      {
+        name: "Agus H.",
+        role: "Alumni — Bekerja di Bandara Soekarno-Hatta",
+        text: "Sekolah AVSEC di sini jelas dari segi harga dan lama pendidikan dibanding sama tempat lain sudah mahal terus lama ehh ujungnya sama aja dapet lisensi doang",
+        avatar: "AH",
+        rating: 5,
+      },
+      {
+        name: "Dhofar I.",
+        role: "Alumni — Personel AVSEC Bandara Juanda",
+        text: "Hasil obrolan dengan temen2 di tempat kerja yang sebelumnya dari berbagai lemdik, terus terang lemdik ini yg paling masuk akal",
+        avatar: "DI",
+        rating: 5,
+      },
+      {
+        name: "Denny S.",
+        role: "Alumni — Personel AVSEC Bandara Ngurah Rai",
+        text: "Mantab disediakan kopi gratis bebas refill biar belajarnya semangat",
+        avatar: "DS",
+        rating: 5,
+      },
+    ];
+    await Testimonial.insertMany(seedData);
+    res.status(201).json({ message: "Testimonials seeded", count: seedData.length });
+  } catch (err) {
+    next(err);
+  }
+}

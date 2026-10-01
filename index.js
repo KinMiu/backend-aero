@@ -16,6 +16,8 @@ import testimonialRoutes from "./routes/testimonialRoutes.js";
 import testimonialLinkRoutes from "./routes/testimonialLinkRoutes.js";
 import documentLinkRoutes from "./routes/documentLinkRoutes.js";
 import uploadedDocumentRoutes from "./routes/uploadedDocumentRoutes.js";
+import visitRoutes from "./routes/visitRoutes.js";
+import adPosterRoutes from "./routes/adPosterRoutes.js";
 
 dotenv.config();
 
@@ -49,6 +51,8 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/testimonial-links", testimonialLinkRoutes);
 app.use("/api/document-links", documentLinkRoutes);
 app.use("/api/documents", uploadedDocumentRoutes);
+app.use("/api/visits", visitRoutes);
+app.use("/api/ad-posters", adPosterRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
