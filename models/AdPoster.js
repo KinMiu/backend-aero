@@ -6,6 +6,7 @@ const adPosterSchema = new mongoose.Schema(
     title: { type: String, required: true },
     startsAt: { type: Date, required: true },
     endsAt: { type: Date, required: true },
+    webinarId: { type: mongoose.Schema.Types.ObjectId, ref: "Webinar", default: null },
   },
   { timestamps: true }
 );

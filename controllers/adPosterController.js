@@ -27,7 +27,7 @@ export async function getAllPosters(req, res, next) {
 
 export async function createPoster(req, res, next) {
   try {
-    const { images, title, startsAt, endsAt } = req.body;
+    const { images, title, startsAt, endsAt, webinarId } = req.body;
     if (!images || images.length === 0) {
       return res.status(400).json({ message: "Minimal 1 gambar wajib diupload" });
     }
@@ -42,7 +42,7 @@ export async function createPoster(req, res, next) {
     if (end.getTime() <= start.getTime()) {
       return res.status(400).json({ message: "Tanggal akhir harus setelah tanggal mulai" });
     }
-    const item = await AdPoster.create({ images, title, startsAt: start, endsAt: end });
+    const item = await AdPoster.create({ images, title, startsAt: start, endsAt: end, webinarId: webinarId || null });
     res.status(201).json(item);
   } catch (err) {
     next(err);
@@ -51,7 +51,7 @@ export async function createPoster(req, res, next) {
 
 export async function updatePoster(req, res, next) {
   try {
-    const { images, title, startsAt, endsAt } = req.body;
+    const { images, title, startsAt, endsAt, webinarId } = req.body;
     const item = await AdPoster.findById(req.params.id);
     if (!item) return res.status(404).json({ message: "Poster tidak ditemukan" });
 
@@ -59,6 +59,7 @@ export async function updatePoster(req, res, next) {
     if (title !== undefined) item.title = title;
     if (startsAt !== undefined) item.startsAt = new Date(startsAt);
     if (endsAt !== undefined) item.endsAt = new Date(endsAt);
+    if (webinarId !== undefined) item.webinarId = webinarId || null;
 
     if (item.endsAt <= item.startsAt) {
       return res.status(400).json({ message: "Tanggal akhir harus setelah tanggal mulai" });

@@ -18,6 +18,9 @@ import documentLinkRoutes from "./routes/documentLinkRoutes.js";
 import uploadedDocumentRoutes from "./routes/uploadedDocumentRoutes.js";
 import visitRoutes from "./routes/visitRoutes.js";
 import adPosterRoutes from "./routes/adPosterRoutes.js";
+import videoContentRoutes from "./routes/videoContentRoutes.js";
+import videoSettingRoutes from "./routes/videoSettingRoutes.js";
+import webinarRoutes from "./routes/webinarRoutes.js";
 
 dotenv.config();
 
@@ -53,6 +56,9 @@ app.use("/api/document-links", documentLinkRoutes);
 app.use("/api/documents", uploadedDocumentRoutes);
 app.use("/api/visits", visitRoutes);
 app.use("/api/ad-posters", adPosterRoutes);
+app.use("/api/video-content", videoContentRoutes);
+app.use("/api/video-settings", videoSettingRoutes);
+app.use("/api/webinars", webinarRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

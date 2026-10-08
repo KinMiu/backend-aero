@@ -12,11 +12,11 @@ export async function getTestimonials(req, res, next) {
 
 export async function createTestimonial(req, res, next) {
   try {
-    const { name, role, text, avatar, photoUrl, rating } = req.body;
+    const { name, role, text, avatar, photoUrl, media, rating } = req.body;
     if (!name || !text) {
       return res.status(400).json({ message: "Name and text are required" });
     }
-    const item = await Testimonial.create({ name, role, text, avatar, photoUrl, rating });
+    const item = await Testimonial.create({ name, role, text, avatar, photoUrl, media, rating });
     res.status(201).json(item);
   } catch (err) {
     next(err);
@@ -31,11 +31,11 @@ export async function createPublicTestimonial(req, res, next) {
       return res.status(403).json({ message: "Link expired or inactive" });
     }
 
-    const { name, role, text, avatar, photoUrl, rating } = req.body;
+    const { name, role, text, avatar, photoUrl, media, rating } = req.body;
     if (!name || !text) {
       return res.status(400).json({ message: "Name and text are required" });
     }
-    const item = await Testimonial.create({ name, role, text, avatar, photoUrl, rating });
+    const item = await Testimonial.create({ name, role, text, avatar, photoUrl, media, rating });
     res.status(201).json(item);
   } catch (err) {
     next(err);

@@ -7,6 +7,13 @@ const testimonialSchema = new mongoose.Schema(
     text: { type: String, required: true },
     avatar: { type: String, default: "" },
     photoUrl: { type: String, default: "" },
+    media: {
+      type: [{
+        url: { type: String, required: true },
+        type: { type: String, required: true, enum: ["image", "video"] },
+      }],
+      default: [],
+    },
     rating: { type: Number, default: 5, min: 1, max: 5 },
   },
   { timestamps: true }
