@@ -6,6 +6,7 @@ const uploadedDocumentSchema = new mongoose.Schema(
     fileName: { type: String, required: true },
     fileType: { type: String, default: "" },
     filePath: { type: String, default: "" },
+    documentLabel: { type: String, default: "" },
   },
   { timestamps: true }
 );

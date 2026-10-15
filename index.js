@@ -21,6 +21,9 @@ import adPosterRoutes from "./routes/adPosterRoutes.js";
 import videoContentRoutes from "./routes/videoContentRoutes.js";
 import videoSettingRoutes from "./routes/videoSettingRoutes.js";
 import webinarRoutes from "./routes/webinarRoutes.js";
+import documentSettingRoutes from "./routes/documentSettingRoutes.js";
+import registrationFeeRoutes from "./routes/registrationFeeRoutes.js";
+import reRegistrationFeeRoutes from "./routes/reRegistrationFeeRoutes.js";
 
 dotenv.config();
 
@@ -59,6 +62,9 @@ app.use("/api/ad-posters", adPosterRoutes);
 app.use("/api/video-content", videoContentRoutes);
 app.use("/api/video-settings", videoSettingRoutes);
 app.use("/api/webinars", webinarRoutes);
+app.use("/api/document-settings", documentSettingRoutes);
+app.use("/api/registration-fee", registrationFeeRoutes);
+app.use("/api/re-registration-fee", reRegistrationFeeRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
