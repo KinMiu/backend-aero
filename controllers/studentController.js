@@ -1,10 +1,22 @@
 import Student from "../models/Student.js";
 import crypto from "crypto";
 
+function createTrackingToken() {
+  return crypto.randomBytes(16).toString("hex");
+}
+
+async function ensureTrackingToken(student) {
+  if (student.trackingToken) return student;
+  student.trackingToken = createTrackingToken();
+  await student.save();
+  return student;
+}
+
 export async function getStudents(req, res, next) {
   try {
     const students = await Student.find().sort({ createdAt: -1 });
-    res.json(students);
+    const studentsWithTokens = await Promise.all(students.map(ensureTrackingToken));
+    res.json(studentsWithTokens);
   } catch (err) {
     next(err);
   }
@@ -14,7 +26,7 @@ export async function getStudent(req, res, next) {
   try {
     const student = await Student.findById(req.params.id);
     if (!student) return res.status(404).json({ message: "Student not found" });
-    res.json(student);
+    res.json(await ensureTrackingToken(student));
   } catch (err) {
     next(err);
   }
@@ -23,7 +35,7 @@ export async function getStudent(req, res, next) {
 export async function createStudent(req, res, next) {
   try {
     const data = req.body;
-    data.trackingToken = crypto.randomBytes(16).toString("hex");
+    data.trackingToken = createTrackingToken();
     const student = await Student.create(data);
     res.status(201).json(student);
   } catch (err) {
